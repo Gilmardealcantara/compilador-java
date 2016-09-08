@@ -1,2 +1,9 @@
-teste
-0
+program
+ a, b, c : int;
+ result : float;
+{
+ scan (a);
+ scan (c);
+ b = 10;
+ result = (a * c)/(b + 5 - 345);
+ p
