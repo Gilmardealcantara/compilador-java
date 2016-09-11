@@ -7,9 +7,7 @@ import lexico.*;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		
-		System.out.println("ola");
-		Lexer lexer = new Lexer("inputs/teste2.txt");
-		System.out.println("sai");
+		Lexer lexer = new Lexer("inputs/teste1.txt");
 		Token tok = null;
 		
 		do{
