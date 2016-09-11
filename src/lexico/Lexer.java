@@ -95,7 +95,8 @@ public class Lexer {
 				if(readch('*')){
 					for( ; ; readch()){
 						//reconhece fim de arquivo se não encontrar */
-						if((int)ch == 65535){
+						if(ch == 65535){
+							ch=0;
 							Token t = new Token(ch);
 							ch = ' ';
 							return t;
@@ -151,6 +152,10 @@ public class Lexer {
 			w = new Word (s, Tag.ID);
 			words.put(s, w);
 			return w;
+		}
+		///EOF
+		if(ch == 65535){
+			ch = 0;
 		}
 		
 		//Caracteres nao especificados

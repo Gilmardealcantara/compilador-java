@@ -28,8 +28,7 @@ public class Tag {
 		NUM = 280,
 		ID = 281,
 		LITERAL = 282,
-		NUM_FLOAT = 283,
-		EOF = -1;
+		NUM_FLOAT = 283;
 		
 
 }
