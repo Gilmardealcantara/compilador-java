@@ -6,7 +6,10 @@ import lexico.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		Lexer lexer = new Lexer("imputs/teste1.txt");
+		
+		System.out.println("ola");
+		Lexer lexer = new Lexer("inputs/teste2.txt");
+		System.out.println("sai");
 		Token tok = null;
 		
 		do{
@@ -14,6 +17,5 @@ public class Main {
 			System.out.println(tok.toString());
 
 		}while(tok.tag != 65535);//????? funfa
-		
 	}
 }
