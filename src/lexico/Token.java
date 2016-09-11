@@ -9,6 +9,6 @@ public class Token {
 	}
 	
 	public String toString() {
-		return "" + this.tag;
+		return "" + (char)this.tag;
 	}
 }
