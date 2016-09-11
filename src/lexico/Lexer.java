@@ -39,6 +39,7 @@ public class Lexer {
 	/*Le o proximo caractere do arquivo*/
 	private void readch() throws IOException{
 		ch = (char) file.read();
+		
 	}
 	
 	/* Le o proximo caractere do arquivo e verifica se e igual a c*/
@@ -55,7 +56,6 @@ public class Lexer {
 			if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b') continue;
 			//para desconsiderar os comentarios de uma linha (%comentatio)
 			else if (ch == '%'){
-				System.out.println("comentario de linha");
 				for(; ; readch()){
 					if(ch == '\n'){
 						line++;
@@ -93,16 +93,24 @@ public class Lexer {
 		//Desconsidera os comentarios de bloco
 		if(ch == '/'){
 				if(readch('*')){
-					System.out.println("comtario de bloco");
-					for( ; ; readch())
+					for( ; ; readch()){
+						//reconhece fim de arquivo se não encontrar */
+						if((int)ch == 65535){
+							Token t = new Token(ch);
+							ch = ' ';
+							return t;
+						}
+						
 						if(ch == '\n') line++;
-					
+						
 						else if (ch == '*'){
 							if(readch('/')) break;
 						}
+					}
 				}
 		}
-		
+				
+		//Literais
 		if(ch == '"'){
 			System.out.println("string");
 			StringBuffer sb = new StringBuffer();

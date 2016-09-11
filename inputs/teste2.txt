@@ -1,5 +1,5 @@
 /* Programa de Teste
-Calculo de idade*/
+Calculo de idade
 program
 _cont : int;
 media, altura, soma_ : float;
