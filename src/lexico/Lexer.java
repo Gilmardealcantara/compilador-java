@@ -7,7 +7,7 @@ public class Lexer {
 	public static int line = 1; //contador de linhas
 	private char ch = ' '; //caractere lido do arquivo
 	private FileReader file;
-	private Hashtable words = new Hashtable();
+	public Hashtable words = new Hashtable();
 	
 	//metodo construtor
 	public Lexer(String fileName) throws FileNotFoundException{
@@ -162,10 +162,6 @@ public class Lexer {
 		Token t = new Token(ch);
 		ch = ' ';
 		return t;
-	}
-	
-	public char scan2() throws IOException{
-		return (char) file.read();
 	}
 
 }

@@ -21,7 +21,6 @@ public class Main {
 			do{
 				tok = lexer.scan();
 				System.out.println(tok.toString());
-	
 			}while(tok.tag != 0);//????? funfa
 			System.out.println("Analise lexica completa!!\n\n");
 		}
