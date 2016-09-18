@@ -13,7 +13,8 @@ public class Main {
 			Scanner entrada = new Scanner (System.in);
 			System.out.println("Indique 1 teste: (example '1', s para sair)");
 			String teste = entrada.nextLine();
-			if(teste == "s") break;
+			
+			if(teste.equals("s")) System.exit(0);
 			
 			Lexer lexer = new Lexer("inputs/teste"+teste+".txt");
 			Token tok = null;
