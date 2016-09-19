@@ -6,4 +6,5 @@ program
  scan (c);
  b = 10;
  result = (a * c)/(b + 5 - 345);
- p
+ print(result); 
+} 
