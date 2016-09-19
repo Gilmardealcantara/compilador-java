@@ -1,1 +1,16 @@
-fazer
+program
+fib1, fib2, fib3, limit, count : int;
+{
+	fib1 = 0;
+	fib2 = 1;
+	count = 2;
+	scan(limit);
+	repeat
+		fib3 = fib1 + fib2;
+		count = count + 1;
+		print(fib3);
+		fib1 = fib2;
+		fib2 = fib3;
+	until(count < limit);
+
+}

@@ -148,7 +148,7 @@ public class Lexer {
 							float f = Float.parseFloat(s);
 							return new Numfloat(f);
 						}else{
-							System.out.println("ERRO: Token mal formado");
+							System.out.println("\nERRO na linha " + line + ": Token mal formado");
 							System.exit(1);
 						}
 					}else{
@@ -164,7 +164,7 @@ public class Lexer {
 					}while(Character.isDigit(ch));
 					//int não pode começar com 0 e ser seguido de digitos
 					if(ch != '.'){
-						System.out.println("ERRO: Token mal formado");
+						System.out.println("\nERRO na linha " + line + ": Token mal formado");
 						System.exit(1);
 					}else{
 						sb.append(ch);
@@ -179,7 +179,7 @@ public class Lexer {
 							float f = Float.parseFloat(s);
 							return new Numfloat(f);
 						}else{
-							System.out.println("ERRO: Token mal formado");
+							System.out.println("\nERRO na linha " + line + ": Token mal formado");
 							System.exit(1);
 						}
 					}
@@ -205,7 +205,7 @@ public class Lexer {
 						float f = Float.parseFloat(s);
 						return new Numfloat(f);
 					}else{
-						System.out.println("ERRO: Token mal formado");
+						System.out.println("\nERRO na linha " + line + ": Token mal formado");
 						System.exit(1);
 					}
 				}else{

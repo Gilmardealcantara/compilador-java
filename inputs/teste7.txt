@@ -1,1 +1,11 @@
-fazer
+program
+fat, n : int;
+{
+	fat = 1;
+	scan();
+	repeat
+		fat = fat * n;
+		n = n - 1;
+	until(n > 1);
+	print(fat);
+}
