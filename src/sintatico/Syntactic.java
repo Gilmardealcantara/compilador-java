@@ -67,7 +67,7 @@ public class Syntactic {
 		if(tok.tag == Tag.INT || tok.tag == Tag.FLOAT){
 			return;
 		}else{
-			identifier(); eat(','); ident_list();
+			eat(Tag.ID); eat(','); ident_list();
 		}
 	}
 	
@@ -78,10 +78,6 @@ public class Syntactic {
 			case Tag.FLOAT: eat(Tag.FLOAT); break;
 			default: error();
 		}
-		
-	}
-	
-	void identifier() throws IOException{
 		
 	}
 	
@@ -107,7 +103,7 @@ public class Syntactic {
 	}
 	
 	void assign_stmt() throws IOException{
-		identifier(); eat('='); simple_expr();
+		eat(Tag.ID); eat('='); simple_expr();
 	}
 	
 	void if_stmt() throws IOException{
@@ -120,7 +116,7 @@ public class Syntactic {
 	}
 	
 	void read_stmt() throws IOException{
-		eat(Tag.SCAN); eat('('); identifier(); eat(')');
+		eat(Tag.SCAN); eat('('); eat(Tag.ID); eat(')');
 	}
 	
 	void write_stmt() throws IOException{
@@ -176,7 +172,14 @@ public class Syntactic {
 	}
 	
 	void factor() throws IOException{
-		
+		switch(tok.tag){
+			case Tag.ID: eat(Tag.ID); break;
+			case Tag.NUM: constant(); break;
+			case Tag.NUM_FLOAT: constant(); break;
+			case Tag.LITERAL: constant(); break;
+			case '(': eat('('); expression(); eat(')'); break;
+			default: error();
+		}
 	}
 	
 	void relop() throws IOException{
@@ -191,7 +194,32 @@ public class Syntactic {
 		}
 	}
 	
+	void addop() throws IOException{
+		switch(tok.tag){
+			case '+': eat('+'); break;
+			case '-': eat('-'); break;
+			case Tag.OR: eat(Tag.OR); break;
+			default: error();
+		}
+	}
 	
+	void mulop() throws IOException{
+		switch(tok.tag){
+			case '*': eat('*'); break;
+			case '/': eat('/'); break;
+			case Tag.AND: eat(Tag.AND); break;
+			default: error();
+		}
+	}
+	
+	void constant() throws IOException{
+		switch(tok.tag){
+			case Tag.NUM: eat(Tag.NUM); break;
+			case Tag.NUM_FLOAT: eat(Tag.NUM_FLOAT); break;
+			case Tag.LITERAL: eat(Tag.LITERAL); break;
+			default: error();
+		}
+	}
 	
 	
 }
