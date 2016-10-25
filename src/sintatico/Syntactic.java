@@ -2,6 +2,9 @@ package sintatico;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import org.omg.CORBA.portable.IndirectionException;
+
 import lexico.*;
 
 public class Syntactic {
@@ -83,9 +86,113 @@ public class Syntactic {
 	}
 	
 	void stmt_list() throws IOException{
+		//stmt-list		::= stmt ";" { stmt ";"}
+		// regra acima tem repetição ate encontrar um } ou until (repeat_suffix)
+		//program		::= program [decl-list] "{" stmt-list "}"
+		//if-stmt			::= if condition "{" stmt-list "}" if-stmt’
+		//repeat-stmt		::= repeat stmt-list repeat-suffix
+		while(tok.tag != '}' || tok.tag != Tag.UNTIL){
+			stmt(); eat(';');
+		}
+	}
+	
+	void stmt() throws IOException{
+		switch(tok.tag){
+			case Tag.IF: if_stmt(); break;
+			case Tag.REPEAT: repeat_stmt(); break;
+			case Tag.SCAN: read_stmt(); break;
+			case Tag.PRINT: write_stmt(); break;
+			default: assign_stmt(); 
+		}
+	}
+	
+	void assign_stmt() throws IOException{
+		identifier(); eat('='); simple_expr();
+	}
+	
+	void if_stmt() throws IOException{
+		eat(Tag.IF); condition(); eat('{'); 
+		stmt_list(); eat('}'); if_stmt_quote();
+	}
+
+	void repeat_stmt() throws IOException{
+		eat(Tag.REPEAT); stmt_list(); repeat_suffix();
+	}
+	
+	void read_stmt() throws IOException{
+		eat(Tag.SCAN); eat('('); identifier(); eat(')');
+	}
+	
+	void write_stmt() throws IOException{
+		eat(Tag.PRINT); eat('('); writable(); eat(')');
+	}
+	
+	void simple_expr() throws IOException{
+		term(); simple_expr_quote();
+	}
+	
+	void simple_expr_quote() throws IOException{
 		
+	}
+		
+	void condition() throws IOException{
+		expression();
+	}
+	
+	void if_stmt_quote() throws IOException{
 		
 	}
 	
+	void expression() throws IOException{
+		simple_expr(); expression_quote();
+	}
+	
+	void repeat_suffix() throws IOException{
+		eat(Tag.UNTIL); condition();
+	}
+	
+	void writable() throws IOException{
+		simple_expr();
+	}
+		
+	void expression_quote() throws IOException{
+		
+	}
+	
+	void term() throws IOException{
+		factor_a(); term_quote();
+	}
+	
+	void factor_a() throws IOException{
+		switch(tok.tag){
+			case '!': eat('!'); factor(); break;
+			case '-': eat('-'); factor(); break;
+			default: factor();
+		}
+	}
+	
+	void term_quote() throws IOException{
+		
+	}
+	
+	void factor() throws IOException{
+		
+	}
+	
+	void relop() throws IOException{
+		switch(tok.tag){
+			case '>': eat('>'); break;
+			case '<': eat('<'); break;
+			case Tag.EQ: eat(Tag.EQ); break;
+			case Tag.GE: eat(Tag.GE); break;
+			case Tag.LE: eat(Tag.LE); break;
+			case Tag.NE: eat(Tag.NE); break;
+			default: error();
+		}
+	}
+	
+	
+	
 	
 }
+
