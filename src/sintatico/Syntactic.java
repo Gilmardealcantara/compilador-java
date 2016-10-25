@@ -11,14 +11,22 @@ public class Syntactic {
 	public Token tok = null;
 	Lexer lexer;
 	
-	public Syntactic() throws IOException {
-		this.lexer = new Lexer("inputs/teste1.txt");
+	public Syntactic(String teste) throws IOException {
+		this.lexer = new Lexer("inputs/teste" + teste + ".txt");
 		this.tok = lexer.scan(); // traz primeiro token
 	}
 
 	private void error(){
-		System.out.println("Correee negada....");
-		 System.exit(0);
+		
+		if(this.tok.tag == 0){
+			System.out.println("Que pena que acabou ouououu.");
+			System.out.println("fim de arquivo.");
+		}else{
+			System.out.println("Correee negada....");
+			System.out.println("Erro linha " + this.lexer.line);			
+			System.out.println("Token (" + this.tok.toString() + ") inesperado na entrada.");
+		}
+		System.exit(0);
 	}
 	
 	private void advance() throws IOException{
@@ -29,9 +37,9 @@ public class Syntactic {
 		if(tok.tag == t) this.advance();
 		else this.error();
 	}
-	
-	public void exec(){
-		//chama program function
+
+	public void exec() throws IOException{
+		program(); //eat(0);
 	}
 	
 	void program() throws IOException{
@@ -63,7 +71,6 @@ public class Syntactic {
 	void ident_list() throws IOException{
 		// ident-list		::= identifier {"," identifier}
 		// Repete identifier(); ate que encontra um type
-		
 		if(tok.tag == Tag.INT || tok.tag == Tag.FLOAT){
 			return;
 		}else{
