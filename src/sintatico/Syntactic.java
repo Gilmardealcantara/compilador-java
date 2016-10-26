@@ -175,7 +175,9 @@ public class Syntactic {
 	}
 	
 	void term_quote() throws IOException{
-		
+		if(this.tok.tag == 42 || this.tok.tag == 47 || this.tok.tag == Tag.AND){ // 42 * - 47 /
+			mulop(); factor_a(); term_quote();
+		}
 	}
 	
 	void factor() throws IOException{
