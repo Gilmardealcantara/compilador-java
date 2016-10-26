@@ -1,9 +1,6 @@
 package sintatico;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import org.omg.CORBA.portable.IndirectionException;
 
 import lexico.*;
 
@@ -40,6 +37,7 @@ public class Syntactic {
 
 	public void exec() throws IOException{
 		program(); //eat(0);
+		System.out.println("Deu bao");
 	}
 	
 	void program() throws IOException{
@@ -94,8 +92,8 @@ public class Syntactic {
 		//program		::= program [decl-list] "{" stmt-list "}"
 		//if-stmt			::= if condition "{" stmt-list "}" if-stmt’
 		//repeat-stmt		::= repeat stmt-list repeat-suffix
-		while(tok.tag != '}' || tok.tag != Tag.UNTIL){
-			stmt(); eat(';');
+		while(tok.tag != '}' && tok.tag != Tag.UNTIL){
+			stmt();eat(';');
 		}
 	}
 	
@@ -135,7 +133,13 @@ public class Syntactic {
 	}
 	
 	void simple_expr_quote() throws IOException{
-		
+		//43 + / 45 - 
+		switch(this.tok.tag){
+			case 43:
+			case  45:
+			case Tag.OR : 
+				addop(); term(); simple_expr_quote(); break;
+		}		
 	}
 		
 	void condition() throws IOException{
@@ -159,7 +163,16 @@ public class Syntactic {
 	}
 		
 	void expression_quote() throws IOException{
-		
+		//"==" | ">" 62 | ">=" | "<" 60 | "<=" | "!>"
+		switch(this.tok.tag){
+			case Tag.EQ:
+			case Tag.GE:
+			case Tag.LE:
+			case Tag.NE:
+			case 62:
+			case 60: 
+				addop(); relop(); simple_expr(); break;
+		}		
 	}
 	
 	void term() throws IOException{
@@ -174,9 +187,13 @@ public class Syntactic {
 		}
 	}
 	
-	void term_quote() throws IOException{
-		if(this.tok.tag == 42 || this.tok.tag == 47 || this.tok.tag == Tag.AND){ // 42 * - 47 /
-			mulop(); factor_a(); term_quote();
+	void term_quote() throws IOException{	
+		//42 * / 47 /
+		switch(this.tok.tag){
+			case 42:
+			case 47:
+			case Tag.AND:
+				mulop(); factor_a(); term_quote(); break;
 		}
 	}
 	
