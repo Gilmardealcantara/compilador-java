@@ -12,6 +12,8 @@ public class Syntactic {
 		this.lexer = new Lexer("inputs/teste" + teste + ".txt");
 		System.out.println("File inputs/teste" + teste + ".txt");
 		this.tok = lexer.scan(); // traz primeiro token
+		System.out.println("Teste Sintatico");
+		System.out.println("tok : " + this.tok.toString()); //printa o primeiro token
 	}
 
 	private void error(){
@@ -38,7 +40,6 @@ public class Syntactic {
 	}
 
 	public void exec() throws IOException{
-		System.out.println("Teste Sintatico");
 		program(); //eat(0);
 		System.out.println("Deu bao");
 	}
@@ -70,12 +71,11 @@ public class Syntactic {
 	}
 	
 	void ident_list() throws IOException{
-		// ident-list		::= identifier {"," identifier}
-		// Repete identifier(); ate que encontra um type
-		if(tok.tag == Tag.INT || tok.tag == Tag.FLOAT){
-			return;
-		}else{
-			eat(Tag.ID); eat(','); ident_list();
+		
+		eat(Tag.ID);
+		while(tok.tag == ','){
+			eat(',');
+			eat(Tag.ID);
 		}
 	}
 	
@@ -164,17 +164,17 @@ public class Syntactic {
 	void writable() throws IOException{
 		simple_expr();
 	}
-		
+	
 	void expression_quote() throws IOException{
+		
 		//"==" | ">" 62 | ">=" | "<" 60 | "<=" | "!>"
 		switch(this.tok.tag){
 			case Tag.EQ:
 			case Tag.GE:
 			case Tag.LE:
 			case Tag.NE:
-			case 62:
-			case 60: 
-				addop(); relop(); simple_expr(); break;
+			case '>':
+			case '<':  relop(); simple_expr(); break;
 		}		
 	}
 	

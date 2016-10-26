@@ -1,7 +1,7 @@
 program
- a, b, c,  int;
- result, float;
+ a, b, c  int;
+ result float;
 {
- result2 = a - c;
+ result = a - c;
  result = a * c;
 };

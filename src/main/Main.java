@@ -15,7 +15,7 @@ public class Main {
 			
 			if(teste.equals("s")) System.exit(0);
 			*/
-			Syntactic sync = new Syntactic("10");
+			Syntactic sync = new Syntactic("4");
 			sync.exec();
 			break;
 		}

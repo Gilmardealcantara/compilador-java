@@ -1,6 +1,6 @@
 program
- a, b, c,  int;
- result, float;
+ a, b, c  int;
+ result float;
 {
  scan (a);
  scan (c);
@@ -9,4 +9,4 @@ program
  result2 = a - c;
  result = a * c;
  print(result); 
-}; 
+} 

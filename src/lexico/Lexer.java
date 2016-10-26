@@ -88,6 +88,12 @@ public class Lexer {
 			case '>':
 				if (readch('=')) return Word.ge;
 				else return new Token('>');
+			case '!': 
+				if (readch('>')) return Word.ne;
+				else{ 
+					System.out.println("\nERRO na linha " + line + ": Token mal formado");
+					System.exit(1);
+				}
 		}
 		
 		//Desconsidera os comentarios de bloco
@@ -108,6 +114,8 @@ public class Lexer {
 							if(readch('/')) break;
 						}
 					}
+				}else{
+					return new Token('/');
 				}
 		}
 				
