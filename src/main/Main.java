@@ -8,7 +8,6 @@ import sintatico.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		System.out.println("Teste Sintatico");
 		while(true){
 			/*Scanner entrada = new Scanner (System.in);
 			System.out.println("Indique 1 teste: (examplo '1', s para sair)");
@@ -16,14 +15,14 @@ public class Main {
 			
 			if(teste.equals("s")) System.exit(0);
 			*/
-			Syntactic sync = new Syntactic("9");
+			Syntactic sync = new Syntactic("10");
 			sync.exec();
 			break;
 		}
 		
 	}
 }
-/*
+/*// Teste lexico
 public class TestLexico {
 	
 		// cont é string para evitar atribuição por referência entre ints do Java

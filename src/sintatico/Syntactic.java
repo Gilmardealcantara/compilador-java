@@ -10,6 +10,7 @@ public class Syntactic {
 	
 	public Syntactic(String teste) throws IOException {
 		this.lexer = new Lexer("inputs/teste" + teste + ".txt");
+		System.out.println("File inputs/teste" + teste + ".txt");
 		this.tok = lexer.scan(); // traz primeiro token
 	}
 
@@ -28,6 +29,7 @@ public class Syntactic {
 	
 	private void advance() throws IOException{
 		tok = this.lexer.scan();
+		System.out.println("tok : " + this.tok.toString());
 	}
 
 	private void eat(int t) throws IOException{
@@ -36,6 +38,7 @@ public class Syntactic {
 	}
 
 	public void exec() throws IOException{
+		System.out.println("Teste Sintatico");
 		program(); //eat(0);
 		System.out.println("Deu bao");
 	}
