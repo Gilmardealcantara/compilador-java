@@ -116,7 +116,17 @@ public class Syntactic {
 	
 	void if_stmt() throws IOException{
 		eat(Tag.IF); condition(); eat('{'); 
-		stmt_list(); eat('}'); if_stmt_quote();
+		stmt_list(); 
+		eat('}'); if_stmt_quote();
+	}
+	
+	void if_stmt_quote() throws IOException{
+		//if-stmt’  ::= else "{" stmt-list "}"
+		switch(tok.tag){
+		 	case Tag.ELSE: eat(Tag.ELSE); eat('{'); stmt_list(); eat('}');
+		 	default: return;
+		}
+		
 	}
 
 	void repeat_stmt() throws IOException{
@@ -147,10 +157,6 @@ public class Syntactic {
 		
 	void condition() throws IOException{
 		expression();
-	}
-	
-	void if_stmt_quote() throws IOException{
-		
 	}
 	
 	void expression() throws IOException{
