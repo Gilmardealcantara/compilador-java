@@ -12,26 +12,27 @@ public class Syntactic {
 		this.lexer = new Lexer("inputs/teste" + teste + ".txt");
 		System.out.println("File inputs/teste" + teste + ".txt");
 		this.tok = lexer.scan(); // traz primeiro token
-		System.out.println("Teste Sintatico");
-		System.out.println("tok : " + this.tok.toString()); //printa o primeiro token
 	}
 
-	private void error(){
+	private void error() throws IOException{
 		
 		if(this.tok.tag == 0){
-			System.out.println("Que pena que acabou ouououu.");
-			System.out.println("fim de arquivo.");
+			System.out.println("EOF.\n\n");
+			System.exit(0);
 		}else{
-			System.out.println("Correee negada....");
 			System.out.println("Erro linha " + this.lexer.line);			
-			System.out.println("Token (" + this.tok.toString() + ") inesperado na entrada.");
+			System.out.println("Token (" + this.tok.toString() + ") inesperado na entrada.\n");
 		}
-		System.exit(0);
+		/*consome o token de erro e continua a analize*/
+		//System.exit(0);
+		while(this.tok.tag != 59) // ate a virgula
+			this.advance();
+		this.advance();
+
 	}
 	
 	private void advance() throws IOException{
 		tok = this.lexer.scan();
-		System.out.println("tok : " + this.tok.toString());
 	}
 
 	private void eat(int t) throws IOException{
@@ -40,8 +41,8 @@ public class Syntactic {
 	}
 
 	public void exec() throws IOException{
-		program(); //eat(0);
-		System.out.println("Deu bao");
+		program();
+		System.out.println("Análize concluída com suscesso.");
 	}
 	
 	void program() throws IOException{
