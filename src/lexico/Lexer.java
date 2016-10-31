@@ -50,8 +50,8 @@ public class Lexer {
 		return true;
 	}
 	
+	
 	public Token scan() throws IOException{
-		
 		//Desconsidera delimitadores na entrada
 		for ( ; ; readch()) {
 			if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b') continue;
@@ -67,6 +67,40 @@ public class Lexer {
 			else if (ch == '\n') line++; //conta linhas
 			else break;
 		}
+		
+		//Desconsidera os comentarios de bloco
+		if(ch == '/'){
+				if(readch('*')){
+					for( ; ; readch()){
+						//reconhece fim de arquivo se não encontrar */
+						if(ch == 65535){
+							ch=0;
+							Token t = new Token(ch);
+							ch = ' ';
+							return t;
+						}
+						
+						if(ch == '\n') line++;
+						
+						else if (ch == '*'){
+							readch();
+							if(ch == '/'){
+								readch();
+								for ( ; ; readch()) {
+									if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\b' || ch == '\n'){
+										continue;
+									}
+									else break;
+								}
+								break;
+							}
+							
+						}
+					}
+				}else{
+					return new Token('/');
+				}
+		}		
 		switch(ch){
 			//Operadores
 			case '&':
@@ -95,30 +129,7 @@ public class Lexer {
 					System.exit(1);
 				}
 		}
-		
-		//Desconsidera os comentarios de bloco
-		if(ch == '/'){
-				if(readch('*')){
-					for( ; ; readch()){
-						//reconhece fim de arquivo se não encontrar */
-						if(ch == 65535){
-							ch=0;
-							Token t = new Token(ch);
-							ch = ' ';
-							return t;
-						}
-						
-						if(ch == '\n') line++;
-						
-						else if (ch == '*'){
-							if(readch('/')) break;
-						}
-					}
-				}else{
-					return new Token('/');
-				}
-		}
-				
+					
 		//Literais
 		if(ch == '"'){
 			StringBuffer sb = new StringBuffer();

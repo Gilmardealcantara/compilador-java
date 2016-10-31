@@ -1,0 +1,6 @@
+/*teste*/
+program
+a int;
+{
+a = 5;
+}

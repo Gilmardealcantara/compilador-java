@@ -17,7 +17,7 @@ public class Syntactic {
 	private void error() throws IOException{
 		
 		if(this.tok.tag == 0){
-			System.out.println("EOF.\n\n");
+			System.out.println("Erros, EOF.\n\n");
 			System.exit(0);
 		}else{
 			System.out.println("Erro linha " + this.lexer.line);			
