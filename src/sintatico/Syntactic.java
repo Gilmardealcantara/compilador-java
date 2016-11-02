@@ -7,6 +7,7 @@ import lexico.*;
 public class Syntactic {
 	public Token tok = null;
 	Lexer lexer;
+	boolean er = false;
 	
 	public Syntactic(String teste) throws IOException {
 		this.lexer = new Lexer("inputs/teste" + teste + ".txt");
@@ -15,19 +16,19 @@ public class Syntactic {
 	}
 
 	private void error() throws IOException{
-		
+		er = true;
 		if(this.tok.tag == 0){
-			System.out.println("Erros, EOF.\n\n");
+			System.out.println("Erro na linha " + this.lexer.line);
+			System.out.println("Final de arquivo inesperado.\n");
+			System.out.println("\n\nAnálize concluída com erros.");
 			System.exit(0);
 		}else{
-			System.out.println("Erro linha " + this.lexer.line);			
+			System.out.println("Erro na linha " + this.lexer.line);			
 			System.out.println("Token (" + this.tok.toString() + ") inesperado na entrada.\n");
 		}
-		/*consome o token de erro e continua a analize*/
-		//System.exit(0);
-		while(this.tok.tag != 59) // ate a virgula
-			this.advance();
+		
 		this.advance();
+		
 
 	}
 	
@@ -42,7 +43,11 @@ public class Syntactic {
 
 	public void exec() throws IOException{
 		program();
-		System.out.println("Análize concluída com suscesso.");
+		if (er == false)
+			System.out.println("\n\nAnálize concluída com suscesso.\n\n");	
+		else
+			System.out.println("\n\nAnálize concluída com erros.\n\n");
+
 	}
 	
 	void program() throws IOException{

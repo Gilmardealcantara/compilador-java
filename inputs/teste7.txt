@@ -1,8 +1,8 @@
 program
-fat, n : int;
+fat, n  int;
 {
 	fat = 1;
-	scan();
+	scan(n);
 	repeat
 		fat = fat * n;
 		n = n - 1;

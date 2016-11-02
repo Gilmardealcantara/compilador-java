@@ -1,5 +1,5 @@
 program
-fib1, fib2, fib3, limit, count : int;
+fib1, fib2, fib3, limit, count  int;
 {
 	fib1 = 0;
 	fib2 = 1;
