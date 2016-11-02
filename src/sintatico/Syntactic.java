@@ -20,7 +20,7 @@ public class Syntactic {
 		if(this.tok.tag == 0){
 			System.out.println("Erro na linha " + this.lexer.line);
 			System.out.println("Final de arquivo inesperado.\n");
-			System.out.println("\n\nAnálize concluída com erros.");
+			System.out.println("\n\nAnálise concluída com erros.");
 			System.exit(0);
 		}else{
 			System.out.println("Erro na linha " + this.lexer.line);			
@@ -44,7 +44,7 @@ public class Syntactic {
 	public void exec() throws IOException{
 		program();
 		if (er == false)
-			System.out.println("\n\nAnálize concluída com suscesso.\n\n");	
+			System.out.println("\n\nAnálise concluída com sucesso.\n\n");	
 
 	}
 	
