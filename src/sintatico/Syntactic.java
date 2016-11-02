@@ -45,8 +45,6 @@ public class Syntactic {
 		program();
 		if (er == false)
 			System.out.println("\n\nAnálize concluída com suscesso.\n\n");	
-		else
-			System.out.println("\n\nAnálize concluída com erros.\n\n");
 
 	}
 	
